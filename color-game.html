@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Color Guessing Game</title>
+</head>
+<body>
+    <div id = "box">
+        <h1>Color Guessing Game</h1>
+        <button type="button" onclick="runGame()">Start Game</button>
+<script>
+const COLORS_ARRAY = ['blue', 'cyan', 'gold', 'gray', 'green', 'magenta', 'orange', 'red', 'white', 'yellow'];
+function runGame() {
+    let guess = "";
+    let correct = false;
+    let numTries = 1;
+    const targetIndex = Math.floor(Math.random() * (COLORS_ARRAY.length - 1)); //Generates randomw number based on array length
+    const target  = COLORS_ARRAY[targetIndex];
+   
+    do {
+        //alert(‘I am thinking about this color number in my head now:’ + targetIndex) //Used for testing
+            guess = prompt('I am thinking of one of these colors:\n\n' + COLORS_ARRAY.join(" , ") + '\n\nWhat color am I thinking of?\n');
+            guess = guess.toLowerCase(); //Converts prompt Upercase input by user to LowerCase
+            numTries += 1;
+    if (guess === null) {
+            guess = "Cancel"
+            alert("You hit cancel. You have stopped the game!")
+            return "" 
+        }
+        
+        correct = checkGuess(guess, target);
+    } while (!correct); //this is the same as saying (correct === false))
+    
+    alert("Congratulations! You guessed my color of " + guess + "! It took you " + (numTries - 1) + " tries!");
+    document.body.style.background = guess;
+    document.getElementById("box").style.background = "";
+}
+function checkGuess(guess, target) {
+    let correct = false; //Set correct to false.
+    if (COLORS_ARRAY.indexOf(guess) < 0) {
+        alert('Color does not exist. Please try again!');
+    } else if (guess > target) {
+        alert('Guess is incorrect. Hint: your color is alphabetically higher than mine. Try again!');
+    } else if (guess < target) {
+        alert('Guess is incorrect. Hint: your color is alphabetically lower than mine. Try again!');
+    } else {
+        correct = true;
+     }
+    return correct;
+}
+//COLORS_ARRAY.join(” , “) space between arrays using commas. 
+</script>
+</body>
+</html>
